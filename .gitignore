@@ -44,3 +44,6 @@ tsconfig.tsbuildinfo
 uploads/*
 !uploads/.gitkeep
 db.sqlite
+
+#variaveis de ambiente
+.env
