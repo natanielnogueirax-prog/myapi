@@ -4,6 +4,11 @@
     // File Layout
     "rootDir": "./src",
     // "outDir": "./dist",
+    "paths": {
+      "@roles/*": ["./src/roles/*"],
+      "@users/*": ["./src/users/*"],
+      "@shared/*": ["./src/shared/*"]
+    },
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
