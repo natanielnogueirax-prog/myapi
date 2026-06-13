@@ -1,9 +1,14 @@
-export class AppServer {
-  private app: string;
+import express from 'express';
+import 'express-async-errors';
 
-  constructor(info: string) {
-    this.app = info ?? 'Olá Dev!';
-  }
-}
+const app = express();
 
-console.log(new AppServer('Bem-vindo ao servidor HTTP!'));
+app.use(express.json());
+
+app.get('/', (request, response) => {
+  return response.json({ message: 'Hello World!' });
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
