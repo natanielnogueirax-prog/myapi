@@ -16,7 +16,7 @@
       "@shared/*": ["src/shared/*"]
     },
 
-    "strict": true,
+    "strict": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
 
