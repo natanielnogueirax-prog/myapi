@@ -9,5 +9,5 @@ export class Role {
     if (!this.id) {
       this.id = uuidv4();
     }
+  }
 }
-

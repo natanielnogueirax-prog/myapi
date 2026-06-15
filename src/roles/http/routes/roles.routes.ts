@@ -1,3 +1,4 @@
+import { Role } from '@roles/entities/Role';
 import { Router } from 'express';
 
 // instancia do routes
