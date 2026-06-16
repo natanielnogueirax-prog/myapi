@@ -9,6 +9,11 @@ const rolesRepository = new RolesRepository();
 // e retorna o role criado com status 201
 rolesRouter.post('/', (request, response) => {
   const { name } = request.body;
+  // Verifica se o role já existe, se sim retorna um erro 400, caso contrário cria o role e retorna o role criado com status 201
+  const roleAlreadyExists = rolesRepository.findByName(name);
+  if (roleAlreadyExists) {
+    return response.status(400).json({ error: 'Role already exists' });
+  }
   const role = rolesRepository.create({ name });
 
   return response.status(201).json(role);
