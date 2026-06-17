@@ -1,10 +1,9 @@
 import { RolesRepository } from '@roles/repositories/RolesRepository';
-import { CreateRoleController } from '@roles/useCases/createRole/CreateRoleController';
+import { createRoleController } from '@roles/useCases/createRole';
 import { Router } from 'express';
 
 // instancia do routes
 const rolesRouter = Router();
-const createRoleController = new CreateRoleController();
 const rolesRepository = new RolesRepository();
 
 // Rota de post para criar, chama o created do repository passando o name do body da requisição,
