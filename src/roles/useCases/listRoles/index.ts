@@ -2,7 +2,7 @@ import { RolesRepository } from '@roles/repositories/RolesRepository';
 import { ListRolesUseCase } from './ListRolesUseCase';
 import { ListRolesController } from './ListRolesController';
 
-const rolesRepository = new RolesRepository();
+const rolesRepository = RolesRepository.getIntance();
 
 const listRolesUseCase = new ListRolesUseCase(rolesRepository);
 
