@@ -8,5 +8,47 @@
       "name": "Nogueira, Natan",
       "email": "nnn"
     }
+  },
+  "paths": {
+    "/roles": {
+      "post": {
+        "tags": ["Role"],
+        "sumarry": "Create a role",
+        "description": "Create a new role",
+        "requestBody": {
+          "content": {
+            "application/json":{
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Role created!"
+          },
+          "400": {
+            "description": "Role already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Role"],
+        "sumarry": "List all roles",
+        "description": "return all roles paginated",
+          "responses": {
+            "200": {
+              "description": "success "
+            }
+          }
+      }
+    }
   }
 }
+
