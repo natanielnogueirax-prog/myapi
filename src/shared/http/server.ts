@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import SwaggerUi from 'swagger-ui-express';
