@@ -1,5 +1,6 @@
 import { Role } from '@roles/entities/Role';
-
+import { dataSource } from '@shared/typeorm';
+import { Repository } from 'typeorm';
 // DTO - Data Transfer Object - é um padrão de projeto usado para transferir dados entre camadas ou sistemas.
 // Ele é uma representação simplificada de um objeto complexo, contendo apenas os dados necessários para a transferência.
 // O DTO é usado para evitar o acoplamento entre as camadas e para melhorar a performance, reduzindo a quantidade de dados transferidos.
@@ -9,12 +10,25 @@ type CreateRoleDTO = {
   name: string;
 };
 
+export type PaginateParams = {
+  page: number;
+  skip: number;
+  take: number;
+};
+
+export type RolesPaginatePropierties = {
+  per_page: number;
+  total: number;
+  current_page: number;
+  data: Role[];
+};
+
 export class RolesRepository {
-  private roles: Role[];
+  private repository: Repository<Role>;
   private static INSTANCE: RolesRepository;
 
   private constructor() {
-    this.roles = [];
+    this.repository = dataSource.getRepository(Role);
   }
 
   public static getIntance(): RolesRepository {
@@ -23,25 +37,44 @@ export class RolesRepository {
     }
     return RolesRepository.INSTANCE;
   }
-  create({ name }: CreateRoleDTO): Role {
-    const role = new Role();
 
-    Object.assign(role, {
-      name,
-      created_at: new Date(),
-    });
-
-    this.roles.push(role);
-    return role;
+  async create({ name }: CreateRoleDTO): Promise<Role> {
+    const role = this.repository.create({ name });
+    return this.repository.save(role);
   }
 
-  findAll(): Role[] {
-    return this.roles;
+  async save(role: Role): Promise<Role> {
+    return this.repository.save(role);
   }
 
-  findByName(name: string): Role | undefined {
-    return this.roles.find(role => {
-      return role.name === name;
-    });
+  async delete(role: Role): Promise<void> {
+    await this.repository.remove(role);
+  }
+
+  async findAll({
+    page,
+    skip,
+    take,
+  }: PaginateParams): Promise<RolesPaginatePropierties> {
+    const [roles, count] = await this.repository
+      .createQueryBuilder()
+      .skip(skip)
+      .take(take)
+      .getManyAndCount();
+    const result = {
+      per_page: take,
+      total: count,
+      current_page: page,
+      data: roles,
+    };
+    return result;
+  }
+
+  async findByName(name: string): Promise<Role | null> {
+    return this.repository.findOneBy({ name });
+  }
+
+  async findById(id: string): Promise<Role | null> {
+    return this.repository.findOneBy({ id });
   }
 }
