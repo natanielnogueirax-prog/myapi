@@ -1,5 +1,6 @@
 import { createRoleController } from '@roles/useCases/createRole';
 import { listRolesController } from '@roles/useCases/listRoles';
+import { showRoleController } from '@roles/useCases/showRole';
 import { Router } from 'express';
 
 // instancia do routes
@@ -14,6 +15,10 @@ rolesRouter.post('/', (request, response) => {
 // Rota get lista as informações usando o find all
 rolesRouter.get('/', (request, response) => {
   return listRolesController.handle(request, response);
+});
+
+rolesRouter.get('/:id', (request, response) => {
+  return showRoleController.handle(request, response);
 });
 
 export { rolesRouter };
