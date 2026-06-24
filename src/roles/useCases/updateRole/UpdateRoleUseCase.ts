@@ -1,0 +1,25 @@
+import { Role } from '@roles/entities/Role';
+import { RolesRepository } from '@roles/repositories/RolesRepository';
+import { AppError } from '@shared/errors/AppError';
+
+type UpdateRoleDto = {
+  id: string;
+  name: string;
+};
+
+export class UpdateRoleUseCase {
+  constructor(private rolesRepository: RolesRepository) {}
+
+  async execute({ id, name }: UpdateRoleDto): Promise<Role> {
+    const role = await this.rolesRepository.findById(id);
+    if (!role) {
+      throw new AppError('Role not found', 404);
+    }
+    const roleWithSameName = await this.rolesRepository.findByName(name);
+    if (roleWithSameName && role.name != roleWithSameName.name) {
+      throw new AppError('Role name not informed or already in use', 400);
+    }
+    role.name = name;
+    return this.rolesRepository.save(role);
+  }
+}
