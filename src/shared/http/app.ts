@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import SwaggerUi from 'swagger-ui-express';
 import cors from 'cors';
+import { errors } from 'celebrate';
 import { routes } from '../routes';
 import { AppError } from '../errors/AppError';
 import swaggerFile from '../../swagger.json';
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use('/docsapi', SwaggerUi.serve, SwaggerUi.setup(swaggerFile));
 
 app.use(routes);
+app.use(errors());
 // middleware de tratamento de erros
 app.use(
   (error: Error, request: Request, response: Response, next: NextFunction) => {

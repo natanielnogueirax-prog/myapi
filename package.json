@@ -17,6 +17,7 @@
     "@types/better-sqlite3": "^7.6.13",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/joi": "^17.2.2",
     "@types/node": "^25.9.4",
     "@types/swagger-ui-express": "^4.1.8",
     "@typescript-eslint/eslint-plugin": "^8.61.0",
@@ -32,6 +33,7 @@
   },
   "dependencies": {
     "better-sqlite3": "^12.11.1",
+    "celebrate": "^15.0.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^4.22.2",
