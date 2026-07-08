@@ -12,7 +12,7 @@ type ListRolesUseCaseParams = {
 @injectable()
 export class ListRolesUseCase {
   constructor(
-    @inject('RolesRpository')
+    @inject('RolesRepository')
     private rolesRepository: IRolesRepository,
   ) {}
 
